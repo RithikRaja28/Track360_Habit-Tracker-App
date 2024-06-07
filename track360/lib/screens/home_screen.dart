@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:track360/components/habit_tile.dart';
+import 'package:track360/components/monthly_summary.dart';
 import 'package:track360/components/my_fab.dart';
 import 'package:track360/components/new_habit_box.dart';
 import 'package:track360/data/habit_database.dart';
@@ -30,12 +31,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   }
 
-  bool habitCompleted = false;
-
+ 
   void checkBoxTapped(bool? value, int index) {
     setState(() {
       db.todaysHabitList[index][1] = value;
     });
+     db.updateDatabase(); 
   }
 
   final _newHabitNameController = TextEditingController();
@@ -57,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     _newHabitNameController.clear();
     Navigator.of(context).pop();
+     db.updateDatabase();
   }
 
   void cancelNewHabit() {
@@ -82,12 +84,14 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     _newHabitNameController.clear();
     Navigator.of(context).pop();
+     db.updateDatabase();
   }
 
   void deleteHabit(int index) {
     setState(() {
       db.todaysHabitList.removeAt(index);
     });
+     db.updateDatabase();
   }
 
   @override
@@ -95,8 +99,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       floatingActionButton: MyFloatingActionButton(onPressed: createNewHabit),
-      body: ListView.builder(
+      body:ListView(
+        children: [
+          MonthlySummary(datasets: db.heatMapDataSet , startDate: _myBox.get("START_DATE")),
+           ListView.builder(
           //habit tiles
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: db.todaysHabitList.length,
           itemBuilder: (context, index) {
             return HabitTile(
@@ -106,6 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 settingsTapped: (context) => openHabitSettings(index),
                 deleteTapped: (context) => deleteHabit(index));
           }),
+        ]
+      )
     );
   }
 }
