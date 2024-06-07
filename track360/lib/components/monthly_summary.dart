@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:track360/datetime/date_time.dart';
-import 'package:heatmap_calendar/heatmap_calendar.dart';
+import 'package:Track360/datetime/date_time.dart';
+import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 
 class MonthlySummary extends StatelessWidget {
   final Map<DateTime, int>? datasets;
@@ -19,31 +19,30 @@ class MonthlySummary extends StatelessWidget {
       padding: const EdgeInsets.only(top: 25, bottom: 25),
       child: HeatMap(
         startDate: createDateTimeObject(startDate),
-        endDate: DateTime.now().add(const Duration(days: 0)),
+        endDate: DateTime.now().add(const Duration(days: 1)),
         datasets: datasets,
         colorMode: ColorMode.color,
-        defaultColor: Colors.grey[200],
+        defaultColor: Colors.purple[100],
         textColor: Colors.white,
         showColorTip: false,
         showText: true,
         scrollable: true,
         size: 30,
         colorsets: const {
-          1: Color.fromARGB(20, 2, 179, 8),
-          2: Color.fromARGB(40, 2, 179, 8),
-          3: Color.fromARGB(60, 2, 179, 8),
-          4: Color.fromARGB(80, 2, 179, 8),
-          5: Color.fromARGB(100, 2, 179, 8),
-          6: Color.fromARGB(120, 2, 179, 8),
-          7: Color.fromARGB(150, 2, 179, 8),
-          8: Color.fromARGB(180, 2, 179, 8),
-          9: Color.fromARGB(220, 2, 179, 8),
-          10: Color.fromARGB(255, 2, 179, 8),
+          1: Colors.purple,
+          2: Color.fromARGB(255, 177, 93, 192),
+          3: Color.fromARGB(255, 208, 108, 226),
+          4: Color.fromARGB(255, 188, 108, 202),
+          5: Color.fromARGB(255, 179, 97, 194),
+          6: Color.fromARGB(255, 151, 81, 163),
+          7: Color.fromARGB(255, 183, 86, 200),
+          8: Color.fromARGB(255, 156, 31, 178),
+          9: Color.fromARGB(255, 195, 90, 213),
+          10: Color.fromARGB(255, 156, 31, 178),
         },
-        onTap: (value) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(value.toString())),
-          );
+        onClick: (value) {
+          // Print the selected date
+          print(value);
         },
       ),
     );

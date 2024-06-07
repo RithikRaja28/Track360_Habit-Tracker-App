@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:track360/components/habit_tile.dart';
-import 'package:track360/components/monthly_summary.dart';
-import 'package:track360/components/my_fab.dart';
-import 'package:track360/components/new_habit_box.dart';
-import 'package:track360/data/habit_database.dart';
+import 'package:Track360/components/habit_tile.dart';
+import 'package:Track360/components/monthly_summary.dart';
+import 'package:Track360/components/my_fab.dart';
+import 'package:Track360/components/new_habit_box.dart';
+import 'package:Track360/data/habit_database.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
